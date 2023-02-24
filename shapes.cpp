@@ -37,12 +37,12 @@ void Circle::draw() const {
 
 /* RegularPolygon */
 
-RegularPolygon::RegularPolygon(size_t n, double size) noexcept: n_(n), size_(size) {
+RegularPolygon::RegularPolygon(size_t n, double size, double rotation_angle) noexcept: n_(n), size_(size) {
     data_.resize(n_);
     double num = 0;
     double radius = size_ / (2 * sin(M_PI / static_cast<double>(n)));
     for (auto &[x, y]: data_) {
-        auto angle = 2 * M_PI * num / static_cast<double>(n);
+        auto angle = 2 * M_PI * num / static_cast<double>(n) + rotation_angle;
         x = radius * cos(angle);
         y = radius * sin(angle);
         ++num;
@@ -76,6 +76,11 @@ void RegularPolygon::draw() const {
     }
 }
 
+
+/* Square */
+
+Square::Square(double width) noexcept: RegularPolygon(angle_num, width, M_PI / 4) {
+}
 
 /* Rectangle */
 

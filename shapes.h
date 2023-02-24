@@ -53,7 +53,7 @@ class RegularPolygon : public Shape {
 public:
     RegularPolygon() = default;
 
-    RegularPolygon(size_t n, double size) noexcept;
+    RegularPolygon(size_t n, double size, double rotation = 0) noexcept;
 
     bool is_point_in_figure(const Point &point) const noexcept override;
 
@@ -63,6 +63,18 @@ private:
     size_t n_{0}; // number of sides
     double size_{0}; // size of side
     std::vector<Point> data_; // shape points
+};
+
+/* Square shape */
+
+class Square : public RegularPolygon {
+public:
+    Square() = default;
+
+    Square(double width) noexcept;
+
+private:
+    static constexpr size_t angle_num = 4;
 };
 
 
