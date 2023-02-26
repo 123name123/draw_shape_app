@@ -34,6 +34,10 @@ void Circle::draw() const {
     }
 }
 
+std::vector<Point> Circle::shape_coordinates(Point shift) const noexcept {
+    return {shift};
+}
+
 
 /* RegularPolygon */
 
@@ -76,6 +80,14 @@ void RegularPolygon::draw() const {
     }
 }
 
+std::vector<Point> RegularPolygon::shape_coordinates(Point shift) const noexcept {
+    std::vector<Point> result;
+    result.reserve(data_.size());
+    transform(data_.begin(), data_.end(), std::back_inserter(result),
+              [shift](Point p) { return Point(p.x_ + shift.x_, p.y_ + shift.y_); });
+    return result;
+}
+
 
 /* Square */
 
@@ -109,4 +121,12 @@ void Rectangle::draw() const {
         }
         std::cout << "\n";
     }
+}
+
+std::vector<Point> Rectangle::shape_coordinates(Point shift) const noexcept {
+    Point corner{width_ / 2, height_ / 2};
+    return {Point(corner.x_ + shift.x_, corner.x_ + shift.y_),
+            Point(corner.x_ + shift.x_, -corner.x_ + shift.y_),
+            Point(-corner.x_ + shift.x_, -corner.x_ + shift.y_),
+            Point(-corner.x_ + shift.x_, corner.x_ + shift.y_)};
 }

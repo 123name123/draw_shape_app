@@ -20,13 +20,19 @@ struct Point {
 
 class Shape {
 public:
-    virtual bool is_point_in_figure(const Point &point) const noexcept = 0; // check if point in shape
+    /* check if point in shape */
+    virtual bool is_point_in_figure(const Point &point) const noexcept = 0;
 
-    virtual void draw() const = 0; // draw shape in the console
+    /* draw shape in the console */
+    virtual void draw() const = 0;
+
+    /* return shape coordinates */
+    virtual std::vector<Point> shape_coordinates(Point shift = Point(0, 0)) const noexcept = 0;
 
     virtual ~Shape() = default;
 
-    static constexpr double eps = 0.00000001; // constant to make correct comparisons
+    /* constant to make correct comparisons */
+    static constexpr double eps = 0.00000001;
 };
 
 
@@ -41,6 +47,8 @@ public:
     bool is_point_in_figure(const Point &point) const noexcept override;
 
     void draw() const override;
+
+    std::vector<Point> shape_coordinates(Point shift = Point(0, 0)) const noexcept override;
 
 private:
     double radius_{0}; // radius of circle
@@ -58,6 +66,8 @@ public:
     bool is_point_in_figure(const Point &point) const noexcept override;
 
     void draw() const override;
+
+    std::vector<Point> shape_coordinates(Point shift = Point(0, 0)) const noexcept override;
 
 private:
     size_t n_{0}; // number of sides
@@ -89,6 +99,8 @@ public:
     bool is_point_in_figure(const Point &point) const noexcept override;
 
     void draw() const override;
+
+    std::vector<Point> shape_coordinates(Point shift = Point(0, 0)) const noexcept override;
 
 private:
     double width_{0}; // rectangle width
